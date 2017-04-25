@@ -2,7 +2,8 @@ var checkList = {
 	buyCoupon: 1, 
 	getMember: 1, 
 	updateMember: 1, 
-	insertEpilogue: 1
+	insertEpilogue: 1,
+	addNewPost: 1
 };
 var loginCheck = function(req, res, next){
 	var cmd = req.method == 'GET' ? req.query.cmd : req.body.cmd;

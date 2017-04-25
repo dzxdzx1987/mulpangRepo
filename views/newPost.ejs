@@ -1,0 +1,10 @@
+<% layout('layout/layout') %>
+<form id="post_form" name="post_form" action="#" method="post">
+    <input type="hidden" name="cmd" value="addNewPost">
+    <!--<input type="hidden" name="userId" value="<%= uid %>"> -->
+    <label for="post_title">제목</lable>
+    <input type="text" name="post_title" id="post_title" />
+    <label for="post_content">내용</lable>
+    <textarea id="post_content" name="post_content" rows="20"></textarea>
+    <input type="submit" value="저장"/>
+</form>

@@ -28,6 +28,9 @@ MongoClient.connect('mongodb://localhost:27017/mulpang', function(err, mulpang) 
 		db.collection('epilogue', function(err, epilogue){
 			db.epilogue = epilogue;
 		});
+		db.collection('post', function(err, post){
+			db.post = post;
+		});
 	}
 });
 
@@ -383,6 +386,22 @@ exports.insertEpilogue = function(options){
   	});   
   });
 };
+
+// add a new post
+exports.addNewPost = function(options) {
+	var post = options.params;
+	post._id = new ObjectId();
+	post.title = options.params.post_title;
+	post.content = options.params.post_content;
+	post.write = options.req.session.uid;
+	post.createDate = new Date();
+	post.modifyDate = new Date();
+	post.viewCount = 0;	
+  
+	db.post.insert(post, function(err, result){
+		options.callback(err, post);
+	});
+}
 
 const ErrorCode = {	
 	LOGIN_FAIL: 102,
