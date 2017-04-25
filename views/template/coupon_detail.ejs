@@ -1,0 +1,131 @@
+<div class="coupon_tab">
+	<section class="gallery">
+		<h1 tabindex="0">갤러리</h1>
+		<div class="gallery_viewport">
+			<!-- 동영상 재생 영역 -->
+			{{if video}}
+			<video preload="none" src="video/${video.src}" poster="video/${video.poster}" controls></video>
+			{{/if}}
+		</div>
+		<article>
+			<h1>포토 리스트</h1>
+			<ul class="photo_list">
+				{{each(i, value) image.etc}}			
+				<li><a href="image/coupon/${value.file}" title="${value.desc}"><img src="image/coupon/${value.file}" alt="${value.desc}"> </a></li>
+				{{/each}}				
+			</ul>
+			<div class="big_photo">
+				{{if image.etc.length > 0}}
+				<img src="image/coupon/${image.etc[0].file}" width="300" height="250" alt="큰 이미지">
+				{{/if}}
+			</div>
+		</article>
+	</section>
+	<section class="reply tab_off">
+		<h1 tabindex="0">쿠폰 후기 및 평점</h1>
+		<ul>
+			{{each(i, epilogue) epilogueList}}
+			<li>
+				<article>
+					<span>${Util.toStar(epilogue.satisfaction)}</span>
+					<p>${epilogue.content}</p>
+					<footer>
+						<img src="image/member/${epilogue.writer}.jpg" alt="${epilogue.writer} 회원 이미지"> <span>${epilogue.writer}</span>
+						<time datetime="${Util.dateToString('-', epilogue.regDate)}">${Util.dateToString('.', epilogue.regDate)}</time>
+					</footer>
+				</article>
+			</li>
+			{{/each}}
+		</ul>
+	</section>
+	<section class="map tab_off">
+		<h1 tabindex="0">찾아오시는 길</h1>
+		<!-- 네이버 Static Map API 사용(https://developers.naver.com/docs/map/overview) -->
+		<!-- clientId는 각자 네이버에 등록해서 부여받은 후 사용할것 -->
+		<div class="map_div"><img src="https://openapi.naver.com/v1/map/staticmap.bin?clientId=nurYihykXbeXcAVh1eYD&url=http://localhost&level=10&w=552&h=282&baselayer=default&center=${shop.position.lng},${shop.position.lat}&markers=${shop.position.lng},${shop.position.lat}"></div>
+		<article class="shop">
+			<h1>
+				<span class="company_name">${shop.shopName}</span>
+			</h1>
+			<div>
+				<dl>
+					<dt>영업점 소개</dt>
+					<dd>
+						<img src="image/shop/${shop.picture.file}" alt="${shop.picture.desc}">
+						<p class="company_desc">${shop.shopDesc}</p>
+					</dd>
+					<dt>찾아 오시는길</dt>
+					<dd>
+						${shop.directions}
+					</dd>
+					<dt>영업시간</dt>
+					<dd>${shop.officeHours.open} ~ ${shop.officeHours.close}</dd>
+					<dt>문의전화 / e-mail</dt>
+					<dd>
+						전화 : <a href="tel:${shop.tel}">${shop.tel}</a> / e-mail : <a href="mailto:${shop.email}">${shop.email}</a>
+					</dd>
+				</dl>
+			</div>
+		</article>
+	</section>
+</div>						
+<!-- 쿠폰 구매폼 출력 영역 -->
+<div class="buy_section">
+	<form name="buy_form" action="#" method="post">
+		<input type="hidden" name="cmd" value="buyCoupon">
+		<input type="hidden" name="couponId" value="${_id}">
+		<input type="hidden" name="unitPrice" value="${price}">
+		<h1>아이스크림 와플 세트</h1>
+		<table class="table_buy_form">
+			<tr>
+				<th><label for="buyQuantity">구매수량</label></th>
+				<td class="number_td">
+					<input type="number" min="1" 
+							max="${quantity-buyQuantity}" 
+							required value="1" 
+							oninput="setPrice(this, ${price})" 
+							name="quantity">
+				</td>
+			</tr>
+			<tr>
+				<th>결제가격</th>
+				<td class="number_td"><output>${price}</output> 원</td>
+			</tr>
+			<tr>
+				<th><label for="cardtype">카드종류</label></th>
+				<td>
+					<select name="cardType">
+						<option value="KB">국민카드</option>
+						<option value="HN">하나카드</option>
+						<option value="BC">BC카드</option>
+						<option value="SS">삼성카드</option>
+						<option value="SH">신한카드</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th><label for="cardNumber">카드번호</label></th>
+				<td><input type="text" value="1234567890123456" maxlength="16" pattern="^\d{16}$" required name="cardNumber"></td>
+			</tr>
+			<tr>
+				<th><label>카드 유효 기간</label></th>
+				<td>
+					<input type="number" min="1" max="12" required value="1" 
+							placeholder="MM" name="cardExpireMonth" title="유효기간 월"> 
+					/ <input type="number" min="2017" max="2025" required 
+							value="2019" placeholder="YYYY" name="cardExpireYear" title="유효기간 년">
+				</td>
+			</tr>
+			<tr>
+				<th><label for="csv">CSV코드</label></th>
+				<td><input type="text" pattern="^\d{3}$" maxlength="3" min="0" max="999"
+						value="123" required placeholder="카드 뒷면 숫자 3자리" name="csv"></td>
+			</tr>
+		</table>
+		<div class="div_btn">
+			<button type="submit" class="btn_buy">구매하기</button>
+		</div>
+	</form>
+</div>					
+
+

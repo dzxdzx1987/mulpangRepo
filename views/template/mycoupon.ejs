@@ -1,0 +1,34 @@
+<article class="coupon_preview">
+	<h1>${coupon.couponName}</h1>
+	<img class="coupon_list_image" src="image/coupon/${coupon.image.main.file}" alt="${coupon.image.main.desc}">
+	<time datetime="${Util.timeToString('-', regDate)}">${Util.timeToString('.', regDate)}</time>		
+	{{if epilogue}}
+	<p>${epilogue.content}</p>
+	<p>${Util.toStar(epilogue.satisfaction)}</p>	
+	{{else}}
+	<form>
+		<input type="hidden" name="cmd" value="insertEpilogue">
+		<input type="hidden" name="couponId" value="${couponId}">
+		<input type="hidden" name="purchaseId" value="${_id}">
+		평가: <input name="satisfaction" type="range" min="1" max="5" value="5" onchange="output.value = this.value"><output name="output">5</output>
+		<textarea name="content" rows="4" cols="27" placeholder="후기를 입력하세요."> </textarea><br>
+		<input type="submit" value="작성">
+	</form>
+	{{/if}}
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

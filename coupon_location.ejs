@@ -1,0 +1,18 @@
+<article data-couponid="${_id}" tabindex="0">
+	<h1>${couponName}</h1>
+	<img class="list_img" src="image/coupon/${image.main.file}" alt="${image.main.desc}">
+	<img class="detail_img" src="image/coupon/${image.detail.file}" alt="${image.detail.desc}">
+	<section class="content">
+		<h1>${couponName}</h1>
+		<p class="note">
+			${desc}
+		</p>
+		<ul class="coupon_info">
+			<li class="cost">정상가격 : <del>${primeCost}원</del></li>
+			<li class="discount">할인가격 : <em>${price}원</em></li>
+			<li class="expire">유효기간 : <time datetime="${Util.dateToString('-', useDate.start)}">${Util.dateToString('.', useDate.start)}</time> 부터 <time datetime="${Util.dateToString('-', useDate.finish)}">${Util.dateToString('.', useDate.finish)}</time> 까지</li>
+			<li class="remain">잔여수량 : <span>${quantity-buyQuantity}개</span></li>
+			<li class="term">판매기간 : <span>${Util.dateToString('.', saleDate.finish)}</span></li>
+		</ul>
+	</section>
+</article>

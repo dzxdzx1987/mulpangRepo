@@ -1,0 +1,50 @@
+<% layout('layout/layout') %>
+<div id="main">
+	<section id="search">
+		<h1>쿠폰 검색</h1>
+		<form id="coupon_search" name="coupon_search" action="#" method="get">
+			<label for="search_date">기간</label>
+			<select id="search_date" name="search_date">
+				<option value="buyable">구매가능</option>
+				<option value="all">전체</option>
+				<option value="past">지난쿠폰</option>
+			</select>
+			<label for="search_location">지역</label>
+			<select id="search_location" name="search_location">
+				<option value="">전체</option>
+				<option>강남</option>
+				<option>압구정</option>
+				<option>논현</option>
+				<option>홍대</option>
+				<option>신촌</option>
+				<option>기타</option>
+			</select>
+			<label for="search_keyword">키워드</label>
+			<input type="text" id="search_keyword" name="search_keyword">
+			<input type="submit" value="검색">
+		</form>
+	</section>
+	<section>
+		<form id="order" name="list_order_form" action="#" method="get">
+			<label for="list_oder">리스트 정렬순서</label>
+			<select id="list_order" name="list_order">
+				<option value="saleDate.start">최근순</option>
+				<option value="satisfactionAvg">평가순</option>
+				<option value="buyQuantity">판매순</option>
+			</select>
+			<button type="submit">확인</button>
+		</form>
+	</section>
+	<section id="coupon" class="slide">
+		<h1 class="blind">쿠폰 리스트</h1>
+		<div id="time"><time datetime="2099-01-01">2099.01.01</time></div>
+		<div class="coupon_list">
+			<!-- 쿠폰 목록 출력 영역 -->
+			
+		</div>
+	</section>
+	<div id="coupon_control">
+		<button type="button" class="btn_pre">이전</button>
+		<button type="button" class="btn_next">다음</button>
+	</div>
+</div>		
