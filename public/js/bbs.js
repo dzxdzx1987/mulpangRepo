@@ -1,30 +1,33 @@
 $(function(){
-    $('#post_form').submit(addNewPost);
+
+	$.get('template/post_list.html', function(html){
+		$.template('list', html);
+		getPostList();
+	});
+
+	$('#notice_search').submit(function(){
+		getPostList($('#notice_search').serialize());
+		return false;
+	});
 });
 
-// add a new post
-function addNewPost(){
-	if($('#post_title').val() == '' || $('#post_title').val() == undefined){
-		alert('please enter the title of the post');
-        return false;
+function getPostList(search) {
+	var params = 'cmd=postList';
+	if (search) {
+		params += '&' + search;
 	}
-    if($('#post_content').val() == '' || $('#post_content').val() == undefined) {
-        alert('please enter the content of the post');
-        return false;
-    }else{
-		$.ajax({
-			url: 'request',
-			data: $(this).serialize(),
-			dataType: 'json',
-			success: function(data){
-				if(data.error){
-					alert(data.message);
-				}else{
-					alert('add a new post!');
-					window.location.href = "bbs.html";
-				}
+	$.ajax({
+		url: 'request',
+		data: params,
+		dataType: 'json',
+		success: function(data){
+			if(data.error){
+				alert(data.message);
+			}else{
+				console.log(data);
+				var postList = $.tmpl('list', data);
+				$('#notice_list').empty().append(postList);
 			}
-		});
-	}
-	return false;
+		}
+	});
 }

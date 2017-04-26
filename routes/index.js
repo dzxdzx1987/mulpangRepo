@@ -8,10 +8,6 @@ router.get('/all.html', function(req, res, next) {
   res.render('today', { title: 'Mulpang', bodyId: 'all', js: 'today.js', uid: req.session.uid, img: req.session.img, auth: req.session.auth });
 });
 
-router.get('/newPost.html', function(req, res, next) {
-  res.render('newPost', { title: 'Mulpang', bodyId: 'all', js: 'bbs.js', uid: req.session.uid, img: req.session.img, auth: req.session.auth });
-});
-
 router.get('/*.html', function(req, res, next) {
 	var url = req.url.substring(1, req.url.indexOf('.html'));
   res.render(url, { title: 'Mulpang', bodyId: url, js: url+'.js', uid: req.session.uid, img: req.session.img, auth: req.session.auth });

@@ -4,8 +4,8 @@
         <form id="notice_search" name="notice_search" action="#" method="get">
             <label for="search_title">제목</lable>
             <input type="text" name="search_title" id="search_title" />
-            <label for="search_author">작성자</lable>
-            <input type="text" name="search_author" id="search_author" />
+            <label for="search_writer">작성자</lable>
+            <input type="text" name="search_writer" id="search_writer" />
             <label for="search_keyword">키워드</lable>
             <input type="text" name="search_keyword" id="search_keyword" />
             <input type="submit" value="검색">
@@ -15,7 +15,7 @@
          <% } %>
     </section>
 
-    <section id="notice_list">
+    <section>
         <table>
             <colgroup>
                 <col width="70%">
@@ -31,25 +31,8 @@
                     <th>방문수</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>test1</td>
-                    <td>terry</td>
-                    <td>2017.04.24</td>
-                    <td>5</td>
-                </tr
-                <tr>
-                    <td>test1</td>
-                    <td>terry</td>
-                    <td>2017.04.24</td>
-                    <td>5</td>
-                </tr>
-                <tr>
-                    <td>test1</td>
-                    <td>terry</td>
-                    <td>2017.04.24</td>
-                    <td>5</td>
-                </tr>
+            <tbody id="notice_list">
+        
             </tbody>
         </table>
     </section>

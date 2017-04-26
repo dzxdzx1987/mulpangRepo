@@ -391,9 +391,9 @@ exports.insertEpilogue = function(options){
 exports.addNewPost = function(options) {
 	var post = options.params;
 	post._id = new ObjectId();
-	post.title = options.params.post_title;
-	post.content = options.params.post_content;
-	post.write = options.req.session.uid;
+	post.post_title = options.params.post_title;
+	post.post_content = options.params.post_content;
+	post.writer = options.req.session.uid;
 	post.createDate = new Date();
 	post.modifyDate = new Date();
 	post.viewCount = 0;	
@@ -402,6 +402,54 @@ exports.addNewPost = function(options) {
 		options.callback(err, post);
 	});
 }
+
+// 쿠폰 목록조회
+exports.postList = function(options){	
+	// 검색 조건
+	var query = {};
+	
+	var title = options.params.search_title;
+	if(title){
+		query['post_title'] = title;
+	}
+	
+	var writer = options.params.search_writer;
+	if(writer){
+		query['writer'] = writer;
+	}
+	// 4. 검색어	
+	var keyword = options.params.search_keyword;
+	if(keyword && keyword.trim() != ''){
+		// 정규표현식
+		var regExp = new RegExp(keyword, 'i');
+		query['$or'] = [{title: regExp}, {post_content: regExp}];
+	}
+
+	// 정렬 옵션
+	var orderBy = {};
+	// 1. 사용자 지정 정렬 옵션
+	var orderCondition = options.params.list_order;
+	if(orderCondition){
+		orderBy[orderCondition] = -1;	// 내림차순
+	}
+	
+	orderBy['createDate'] = -1;
+	
+	// 출력할 속성 목록
+	var resultAttr = {
+		post_title: 1,
+		post_content: 1,
+		writer: 1,
+		createDate: 1,
+		modifyDate: 1,
+		viewCount: 1,
+	};
+	
+	// TODO 전체 쿠폰 목록을 조회한다.
+	db.post.find(query, resultAttr).sort(orderBy).toArray(function(err, result){
+		options.callback(err, result);
+	});
+};
 
 const ErrorCode = {	
 	LOGIN_FAIL: 102,
